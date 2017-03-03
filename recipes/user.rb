@@ -16,10 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Note: used when node['neo4j']['install_method']  == 'tarball',
-# node['neo4j']['install_method']  == 'package' auto install
-# neo4j service user/group
-#
 # WARNING:
 # User setup by this recipe may not provide a unique
 # user/group id across nodes and could create problem

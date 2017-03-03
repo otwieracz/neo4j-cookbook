@@ -1,9 +1,14 @@
+#*****************************************************************
+# Neo4j configuration
 #
+# For more details and a complete list of settings, please see
+# https://neo4j.com/docs/operations-manual/current/reference/#configuration-settings
+#*****************************************************************
+
 # This configuration file is managed by chef
 # Do not edit by hand.  Your changes will be overwritten
 #
 #
-# Java wrapper.java.additional settings
 
 <% Hash[@config.sort].each do |key, value| -%>
 <% if key -%>
@@ -17,3 +22,4 @@ wrapper.java.additional=<%= o %>
 <% end -%>
 <% end -%>
 wrapper.java.additional=-Dneo4j.ext.udc.source=<%= node['platform_family'] == 'rhel' ? 'rpm' : 'debian' %>
+

@@ -3,8 +3,6 @@ default['neo4j']['release'] = '2.2.4'
 default['neo4j']['release_suffix'] = node['platform_family'] == 'rhel' ? '-1' : ''
 default['neo4j']['edition'] = 'community' # options: community, enterprise
 default['neo4j']['install_java']    = true
-default['neo4j']['install_method']  = 'package' # options: package, tarball
-default['neo4j']['package'] = node['neo4j']['edition'] == 'community' ? 'neo4j' : 'neo4j-' + node['neo4j']['edition']
 
 # tarball sources
 default['neo4j']['tarball_url'] = "http://neo4j.com/artifact.php?name=neo4j-#{node['neo4j']['edition']}-#{node['neo4j']['release']}-unix.tar.gz"
@@ -32,6 +30,8 @@ default['neo4j']['tarball_checksum']['2.3.2']['enterprise'] = 'ea80cfca918dd70ea
 default['neo4j']['tarball_checksum']['2.3.3']['community'] = '01559c55055516a42ee2dd100137b6b55d63f02959a3c6c6db7a152e045828d9'
 default['neo4j']['tarball_checksum']['2.3.3']['enterprise'] = '864b7ebef3a12844c809e75016aa951c60ac90fb0d075a595108824859ce7875'
 
+default['neo4j']['tarball_checksum']['3.1.1']['community'] = '7d66389ad683f66664f11a79314ce4d434ab70ade9c02601ee74e59cd729e2cb'
+
 # tarball install directory locations
 default['neo4j']['parent_dir']  = '/usr/local/neo4j'
 default['neo4j']['install_dir'] = ::File.join(node['neo4j']['parent_dir'], 'neo4j')
@@ -51,15 +51,7 @@ default['neo4j']['group']       = node['platform_family'] == 'rhel' ? 'neo4j' : 
 default['neo4j']['setup_user']  = true # for tarball install
 
 default['neo4j']['log_dir']   = '/var/log/neo4j'
-default['neo4j']['home_dir']  = case node['neo4j']['install_method']
-                                when 'package'
-                                  value_for_platform_family(
-                                    'debian' => '/var/lib/neo4j',
-                                    'rhel' => '/usr/share/neo4j'
-                                  )
-                                else
-                                  node['neo4j']['install_dir']
-                                end
+default['neo4j']['home_dir']  = node['neo4j']['install_dir']
 
 # this works for both package and tarball
 default['neo4j']['conf_dir'] = ::File.join(node['neo4j']['home_dir'], 'conf')

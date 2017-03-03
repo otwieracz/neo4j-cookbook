@@ -17,46 +17,14 @@
 # limitations under the License.
 #
 
-# Template for /etc/neo4j/neo4j-server.properties
-template ::File.join(node['neo4j']['conf_dir'], 'neo4j-server.properties') do
-  source 'neo4j-server.properties.erb'
+# Template for /etc/neo4j/neo4j.conf
+template ::File.join(node['neo4j']['conf_dir'], 'neo4j.conf') do
+  source 'neo4j.conf.erb'
   owner node['neo4j']['user']
   group node['neo4j']['group']
   mode '0644'
   backup node['neo4j']['chef_backup']
-  variables(:config => node['neo4j']['config']['neo4j-server.properties'])
-  notifies :restart, 'service[neo4j]', :delayed if node['neo4j']['notify_restart']
-end
-
-# Template for /etc/neo4j/neo4j.properties
-template ::File.join(node['neo4j']['conf_dir'], 'neo4j.properties') do
-  source 'neo4j.properties.erb'
-  owner node['neo4j']['user']
-  group node['neo4j']['group']
-  mode '0644'
-  backup node['neo4j']['chef_backup']
-  variables(:config => node['neo4j']['config']['neo4j.properties'])
-  notifies :restart, 'service[neo4j]', :delayed if node['neo4j']['notify_restart']
-end
-
-# Template for /etc/neo4j/neo4j-wrapper.conf
-template ::File.join(node['neo4j']['conf_dir'], 'neo4j-wrapper.conf') do
-  source 'neo4j-wrapper.conf.erb'
-  owner node['neo4j']['user']
-  group node['neo4j']['group']
-  mode '0644'
-  backup node['neo4j']['chef_backup']
-  variables(:config => node['neo4j']['config']['neo4j-wrapper.conf'])
-  notifies :restart, 'service[neo4j]', :delayed if node['neo4j']['notify_restart']
-end
-
-# Template for /etc/neo4j/logging.properties
-template ::File.join(node['neo4j']['conf_dir'], 'logging.properties') do
-  source 'logging.properties.erb'
-  owner node['neo4j']['user']
-  group node['neo4j']['group']
-  mode '0644'
-  variables(:config => node['neo4j']['config']['logging.properties'])
+  variables(:config => node['neo4j']['config']['neo4j.conf'])
   notifies :restart, 'service[neo4j]', :delayed if node['neo4j']['notify_restart']
 end
 

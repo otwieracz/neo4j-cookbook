@@ -27,22 +27,17 @@ suites:
   - name: tarball
     run_list:
       - recipe[neo4j::default]
-    attributes:
-      neo4j:
-        install_method: tarball
   - name: enterprise-tarball
     run_list:
       - recipe[neo4j::default]
     attributes:
       neo4j:
-        install_method: tarball
         edition: enterprise
   - name: latest-default
     run_list:
       - recipe[neo4j::default]
     attributes:
       neo4j:
-        install_method: tarball
         release: '2.3.3'
   - name: chef11-default
     run_list:

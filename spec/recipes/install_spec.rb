@@ -26,12 +26,6 @@ describe 'neo4j::install' do
   end
 
   context 'rhel tarball install' do
-    let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'centos', version: '6.5') do |node|
-        node.set['neo4j']['install_method'] = 'tarball'
-      end.converge(described_recipe)
-    end
-
     it 'creates neo4j auth file directory' do
       expect(chef_run).to create_directory('/usr/local/neo4j/neo4j/data/dbms')
     end
@@ -56,12 +50,6 @@ describe 'neo4j::install' do
   end
 
   context 'ubuntu tarball install' do
-    let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '12.04') do |node|
-        node.set['neo4j']['install_method'] = 'tarball'
-      end.converge(described_recipe)
-    end
-
     it 'creates neo4j auth file directory' do
       expect(chef_run).to create_directory('/usr/local/neo4j/neo4j/data/dbms')
     end
@@ -71,15 +59,4 @@ describe 'neo4j::install' do
     end
   end
 
-  it 'includes the neo4j::tarball recipe when  install_method = tarball' do
-    chef_run.node.set['neo4j']['install_method'] = 'tarball'
-    chef_run.converge(described_recipe)
-    expect(chef_run).to include_recipe('neo4j::tarball')
-  end
-
-  it 'includes the neo4j::package recipe when  install_method = package' do
-    chef_run.node.set['neo4j']['install_method'] = 'package'
-    chef_run.converge(described_recipe)
-    expect(chef_run).to include_recipe('neo4j::package')
-  end
 end
