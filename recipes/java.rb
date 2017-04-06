@@ -24,6 +24,7 @@ if node['neo4j']['install_java']
   node.default['java']['set_default'] = true
   node.default['java']['arch'] = node['kernel']['machine']
   node.default['java']['oracle']['accept_oracle_download_terms'] = true
+  node.default['java']['alternatives_priority'] = 9999
 
   include_recipe 'apt' if node['platform_family'] == 'debian'
   include_recipe 'java::default'
